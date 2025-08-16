@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { ModalProvider } from "@/providers/modal-provider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -129,6 +130,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <TopLoadingBar />
           {children}
           <Analytics />
+          <SpeedInsights />
           <Toaster />
           <ModalProvider />
         </ThemeProvider>
