@@ -8,7 +8,6 @@ import { AnimatedText } from "@/components/common/animated-text";
 import { ClientPageWrapper } from "@/components/common/client-page-wrapper";
 import { Icons } from "@/components/common/icons";
 import { SimpleLoadingLink } from "@/components/common/simple-loading-link";
-import { ProjectImagePreloader } from "@/components/common/project-image-preloader";
 
 import ProjectCardCarousel from "@/components/experience/project-card-carousel";
 import SkillsCard from "@/components/skills/skills-card";
@@ -65,9 +64,9 @@ export default function IndexPage() {
 
   // Function to filter projects by category for homepage tabs
   const getProjectsByCategory = (category: string) => {
-    if (category === "all") return featuredExperiences;
+    if (category === "all") return featuredExperiences.slice(0, 3); // Limit featured to 3
     if (category === "other") {
-      return Experiences.filter(exp => exp.id === "campus-swipe" || exp.id === "gsx2json-utility").slice(0, 4);
+      return Experiences.filter(exp => exp.id === "campus-swipe" || exp.id === "gsx2json-utility").slice(0, 3);
     }
     return Experiences.filter(exp => 
       exp.category.some(cat => {
@@ -76,7 +75,7 @@ export default function IndexPage() {
         if (category === "ai") return cat === "AI/ML";
         return false;
       })
-    ).slice(0, 4); // Show up to 4 projects per category
+    ).slice(0, 3); // Show up to 3 projects per category for faster loading
   };
 
   // Structured data for website as a software application (template)
@@ -100,7 +99,6 @@ export default function IndexPage() {
 
   return (
     <ClientPageWrapper>
-      <ProjectImagePreloader />
       <Script
         id="schema-person"
         type="application/ld+json"

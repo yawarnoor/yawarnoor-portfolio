@@ -4,8 +4,7 @@ import { redirect } from "next/navigation";
 
 import { ClientPageWrapper } from "@/components/common/client-page-wrapper";
 import { Icons } from "@/components/common/icons";
-import { LoadingImage } from "@/components/common/loading-image";
-import { ProjectImagePreloader } from "@/components/common/project-image-preloader";
+import { IntersectionObserverImage } from "@/components/common/intersection-observer-image";
 import { SimpleLoadingLink } from "@/components/common/simple-loading-link";
 import ExperienceDescription from "@/components/experience/exp-description";
 import { buttonVariants } from "@/components/ui/button";
@@ -31,7 +30,6 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <article className="container relative max-w-3xl py-6 lg:py-10">
-      <ProjectImagePreloader currentProjectId={params.projectId} />
       <Link
         href="/projects"
         className={cn(
@@ -92,7 +90,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </div>
 
-      <LoadingImage
+      <IntersectionObserverImage
         src={exp.companyLogoImg}
         alt={exp.companyName}
         width={720}
@@ -131,7 +129,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             <div>
               <p>{page.description}</p>
               {page.imgArr.map((img, ind) => (
-                <LoadingImage
+                <IntersectionObserverImage
                   src={img}
                   key={ind}
                   alt={`${page.title} - Screenshot ${ind + 1}`}
@@ -140,6 +138,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                   className="my-4 rounded-md border bg-muted"
                   priority={ind === 0}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 720px"
+                  rootMargin="200px"
                 />
               ))}
             </div>

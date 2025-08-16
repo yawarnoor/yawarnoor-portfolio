@@ -1,15 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useMemo, useState, useCallback } from "react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useMemo, useState, useCallback } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { Icons } from "@/components/common/icons";
-import { LoadingImage } from "@/components/common/loading-image";
+import { IntersectionObserverImage } from "@/components/common/intersection-observer-image";
 import { SimpleLoadingLink } from "@/components/common/simple-loading-link";
-import { Button } from "@/components/ui/button";
 import { AnimatedLoadingButton } from "@/components/ui/animated-loading-button";
 import ChipContainer from "@/components/ui/chip-container";
 import { ExperienceInterface } from "@/config/experience";
@@ -22,17 +19,17 @@ interface ProjectCardCarouselProps {
 export default function ProjectCardCarousel({ project }: ProjectCardCarouselProps) {
   const router = useRouter();
   
-  // Collect all images from pagesInfoArr
+  // State declarations - simplified without lightbox
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // Collect all images from pagesInfoArr for carousel navigation
   const allImages = project.pagesInfoArr.reduce((acc: string[], page) => {
     return [...acc, ...page.imgArr];
   }, []);
   
   // Use project logo as first image, then add all page images
   const images = [project.companyLogoImg, ...allImages];
-  
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const prefersReducedMotion = useMemo(() => {
     if (typeof window === "undefined") return false;
@@ -55,20 +52,8 @@ export default function ProjectCardCarousel({ project }: ProjectCardCarouselProp
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "ArrowRight") nextImage();
     if (e.key === "ArrowLeft") prevImage();
-    if (e.key === "Enter" || e.key === " ") setIsLightboxOpen(true);
+    if (e.key === "Enter" || e.key === " ") router.push(`/projects/${project.id}`);
   };
-
-  // Global keyboard for lightbox
-  useEffect(() => {
-    if (!isLightboxOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsLightboxOpen(false);
-      if (e.key === "ArrowRight") nextImage();
-      if (e.key === "ArrowLeft") prevImage();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [isLightboxOpen, nextImage, prevImage]);
 
   return (
     <div 
@@ -89,18 +74,18 @@ export default function ProjectCardCarousel({ project }: ProjectCardCarouselProp
 
       {/* Image Carousel Container */}
       <div className="relative w-full h-[200px] flex-shrink-0">
-        <LoadingImage
+        <IntersectionObserverImage
           className={`rounded-lg border border-border object-cover cursor-pointer ${prefersReducedMotion ? "transition-none" : "transition-all duration-200"}`}
           src={images[currentImageIndex]}
           alt={`${project.companyName} - Image ${currentImageIndex + 1}`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          priority={currentImageIndex === 0}
-          onClick={() => setIsLightboxOpen(true)}
+          onClick={() => router.push(`/projects/${project.id}`)}
           role="button"
-          aria-label="Open image gallery"
+          aria-label="View project details"
+          rootMargin="100px"
         />
-        {/* Navigation Arrows - Only show on hover and when multiple images */}
+        {/* Navigation Arrows - Show on hover when multiple images */}
         {images.length > 1 && (
           <>
             <button
@@ -124,7 +109,7 @@ export default function ProjectCardCarousel({ project }: ProjectCardCarouselProp
           </>
         )}
         
-        {/* Image Indicators - Only show when multiple images */}
+        {/* Image Indicators - Show when multiple images */}
         {images.length > 1 && (
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
             {images.map((_, index) => (
@@ -142,7 +127,7 @@ export default function ProjectCardCarousel({ project }: ProjectCardCarouselProp
           </div>
         )}
         
-        {/* Image Counter */}
+        {/* Image Counter - Show on hover when multiple images */}
         {images.length > 1 && isHovered && (
           <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             {currentImageIndex + 1} / {images.length}
@@ -195,53 +180,7 @@ export default function ProjectCardCarousel({ project }: ProjectCardCarouselProp
         </div>
       </div>
 
-      {/* Lightbox */}
-      {isLightboxOpen && (
-        <div
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${project.companyName} image gallery`}
-          onClick={() => setIsLightboxOpen(false)}
-        >
-          <button
-            onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }}
-            className="absolute top-4 right-4 text-white/80 hover:text-white"
-            aria-label="Close gallery"
-          >
-            <X className="w-6 h-6" />
-          </button>
 
-          {images.length > 1 && (
-            <button
-              onClick={(e) => { e.stopPropagation(); prevImage(); }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-          )}
-
-          <div className="relative w-[90vw] max-w-4xl h-[80vh]">
-            <Image
-              src={images[currentImageIndex]}
-              alt={`${project.companyName} - Image ${currentImageIndex + 1}`}
-              fill
-              className="object-contain"
-            />
-          </div>
-
-          {images.length > 1 && (
-            <button
-              onClick={(e) => { e.stopPropagation(); nextImage(); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          )}
-        </div>
-      )}
     </div>
   );
 } 

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { Icons } from "@/components/common/icons";
-import { LoadingImage } from "@/components/common/loading-image";
+import { IntersectionObserverImage } from "@/components/common/intersection-observer-image";
 import { SimpleLoadingLink } from "@/components/common/simple-loading-link";
 import { Button } from "@/components/ui/button";
 import { LoadingButton } from "@/components/ui/loading-button";
@@ -26,13 +26,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       )}
       
       <div className="relative w-full h-[200px] flex-shrink-0">
-        <LoadingImage
+        <IntersectionObserverImage
           className="rounded-lg border border-border object-cover"
           src={project.companyLogoImg}
           alt={`${project.companyName} logo`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          priority={false}
+          rootMargin="50px"
         />
       </div>
       <div className="pt-5 space-y-3 flex-grow flex flex-col">

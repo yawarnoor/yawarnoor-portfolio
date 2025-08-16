@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+ 
 
 interface LoadingImageProps {
   src: string;
@@ -26,7 +26,6 @@ export const LoadingImage = ({
   sizes,
   ...props
 }: LoadingImageProps) => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   if (hasError) {
@@ -46,8 +45,8 @@ export const LoadingImage = ({
         onError={() => setHasError(true)}
         priority={priority}
         sizes={sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
-        loading="eager"
-        quality={85}
+        loading={priority ? "eager" : "lazy"}
+        quality={70}
         placeholder="blur"
         blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkrHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+hxRi5xTN9lQKfiRqYfHbVblLpWpJBJBPGSDJvkOW9RlbnAG5Hej/FmpHSr8ZB/mKPFf05lnErjLWd0/a/p9JtQVLjQzqe6L8EUfmrKe8+3mMWX/NZ8LtTa6eHKLdsXh5aw6g7EXx+K7E7hHNKp+sTa1GGRA/kfn2rPr"
         {...props}
@@ -64,6 +63,7 @@ export const LoadingImage = ({
       priority={priority}
       sizes={sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
       loading={priority ? "eager" : "lazy"}
+      quality={70}
       {...props}
     />
   );
