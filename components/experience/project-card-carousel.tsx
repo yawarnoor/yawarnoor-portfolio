@@ -75,7 +75,9 @@ export default function ProjectCardCarousel({ project }: ProjectCardCarouselProp
       {/* Image Carousel Container */}
       <div className="relative w-full h-[200px] flex-shrink-0">
         <IntersectionObserverImage
-          className={`rounded-lg border border-border object-cover cursor-pointer ${prefersReducedMotion ? "transition-none" : "transition-all duration-200"}`}
+          className={`rounded-lg border border-border cursor-pointer ${prefersReducedMotion ? "transition-none" : "transition-all duration-200"} ${
+            currentImageIndex === 0 ? "object-cover" : "object-contain bg-muted"
+          }`}
           src={images[currentImageIndex]}
           alt={`${project.companyName} - Image ${currentImageIndex + 1}`}
           fill

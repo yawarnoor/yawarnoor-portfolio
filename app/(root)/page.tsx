@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
+import dynamic from "next/dynamic";
 
 import { AnimatedSection } from "@/components/common/animated-section";
 import { AnimatedText } from "@/components/common/animated-text";
@@ -9,11 +10,20 @@ import { ClientPageWrapper } from "@/components/common/client-page-wrapper";
 import { Icons } from "@/components/common/icons";
 import { SimpleLoadingLink } from "@/components/common/simple-loading-link";
 
-import ProjectCardCarousel from "@/components/experience/project-card-carousel";
-import SkillsCard from "@/components/skills/skills-card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { NavButton } from "@/components/ui/nav-button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+// Dynamic imports for below-the-fold content
+const ProjectCardCarousel = dynamic(() => import("@/components/experience/project-card-carousel"), {
+  loading: () => <div className="h-64 bg-muted animate-pulse rounded-lg" />,
+  ssr: false,
+});
+
+const SkillsCard = dynamic(() => import("@/components/skills/skills-card"), {
+  loading: () => <div className="h-32 bg-muted animate-pulse rounded-lg" />,
+  ssr: false,
+});
 import { featuredExperiences, Experiences } from "@/config/experience";
 import { pagesConfig } from "@/config/pages";
 import { siteConfig } from "@/config/site";

@@ -1,9 +1,15 @@
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 
 import { ClientPageWrapper } from "@/components/common/client-page-wrapper";
 import PageContainer from "@/components/common/page-container";
-import ProjectCardCarousel from "@/components/experience/project-card-carousel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+// Dynamic import for project cards
+const ProjectCardCarousel = dynamic(() => import("@/components/experience/project-card-carousel"), {
+  loading: () => <div className="h-64 bg-muted animate-pulse rounded-lg" />,
+  ssr: false,
+});
 import { Experiences } from "@/config/experience";
 import { pagesConfig } from "@/config/pages";
 

@@ -1,10 +1,11 @@
 import "./globals.css";
 
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { Inter as FontSans } from "next/font/google";
 import localFont from "next/font/local";
 
 import { Analytics } from "@/components/common/analytics";
+import { CriticalCSS } from "@/components/common/critical-css";
+import { DeferredAnalytics } from "@/components/common/deferred-analytics";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import { TopLoadingBar } from "@/components/common/top-loading-bar";
 import { Toaster } from "@/components/ui/toaster";
@@ -105,7 +106,22 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <CriticalCSS />
+        {/* Preload critical fonts */}
+        <link
+          rel="preload"
+          href="/assets/fonts/CalSans-SemiBold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        {/* DNS prefetch for external resources */}
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        {/* Preconnect to speed up third-party requests */}
+        <link rel="preconnect" href="https://vitals.vercel-insights.com" />
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
@@ -133,9 +149,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <SpeedInsights />
           <Toaster />
           <ModalProvider />
+          <DeferredAnalytics gaId={GA_ID} />
         </ThemeProvider>
       </body>
-      <GoogleAnalytics gaId={GA_ID} />
     </html>
   );
 }
