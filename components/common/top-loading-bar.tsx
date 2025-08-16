@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
-export const TopLoadingBar = () => {
+const TopLoadingBarContent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const pathname = usePathname();
@@ -74,5 +74,13 @@ export const TopLoadingBar = () => {
         </motion.div>
       )}
     </AnimatePresence>
+  );
+};
+
+export const TopLoadingBar = () => {
+  return (
+    <Suspense fallback={null}>
+      <TopLoadingBarContent />
+    </Suspense>
   );
 };

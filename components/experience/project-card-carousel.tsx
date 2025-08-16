@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -39,17 +39,17 @@ export default function ProjectCardCarousel({ project }: ProjectCardCarouselProp
     return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
-  };
+  }, [images.length]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
+  }, [images.length]);
 
-  const goToImage = (index: number) => {
+  const goToImage = useCallback((index: number) => {
     setCurrentImageIndex(index);
-  };
+  }, []);
 
   // Keyboard navigation for carousel when focused
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -68,7 +68,7 @@ export default function ProjectCardCarousel({ project }: ProjectCardCarouselProp
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [isLightboxOpen]);
+  }, [isLightboxOpen, nextImage, prevImage]);
 
   return (
     <div 
