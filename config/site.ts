@@ -1,0 +1,42 @@
+export const siteConfig = {
+  name: "Yawar Noor | Full Stack Developer Portfolio",
+  authorName: "Yawar Noor",
+  username: "yawarnoor",
+  description:
+    "Yawar Noor's portfolio - A passionate Full Stack Developer specializing in MERN Stack, Flutter, and AI integration. Computer Science graduate with proven expertise in building scalable web and mobile applications.",
+  url: "https://yawarnoor.vercel.app",
+  links: {
+    linkedin: "https://linkedin.com/in/yawar-noor",
+    github: "https://github.com/yawarnoor",
+    phone: "+92 303 3793701",
+    email: "yawarnyt@gmail.com"
+  },
+  ogImage: "https://yawarnoor.vercel.app/profile-img.jpg",
+  iconIco: "/favicon.ico",
+  logoIcon: "/logo.png",
+  keywords: [
+    "Yawar Noor",
+    "Full Stack Developer",
+    "MERN Stack Developer",
+    "Flutter Developer",
+    "Python Developer",
+    "React Developer",
+    "Node.js Developer",
+    "Mobile App Developer",
+    "AI Integration",
+    "Web Scraping Expert",
+    "Firebase Developer",
+    "MongoDB Developer",
+    "TypeScript Developer",
+    "JavaScript Developer",
+    "Computer Science Graduate",
+    "Sukkur IBA University",
+    "Freelance Developer",
+    "Pakistan Developer",
+    "Software Engineer",
+    "Frontend Developer",
+    "Backend Developer",
+    "API Development",
+    "Database Design"
+  ],
+};
