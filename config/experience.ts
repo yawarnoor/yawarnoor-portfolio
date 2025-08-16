@@ -38,7 +38,7 @@ export const Experiences: ExperienceInterface[] = [
     shortDescription: "Intelligent HR management system with AI-powered candidate screening, automated CV analysis, and smart job matching algorithms.",
     websiteLink: "",
     githubLink: "",
-    techStack: ["TypeScript", "Next.js", "Node.js", "OpenAI API", "PostgreSQL", "Stripe", "Clerk"],
+    techStack: ["Next.js", "Node.js", "OpenAI API", "PostgreSQL", "Stripe", "Clerk"],
     startDate: new Date("2024-06"),
     endDate: new Date("2024-11"),
     companyLogoImg: "/experience/talentmatch/logo.png",
