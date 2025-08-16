@@ -64,9 +64,9 @@ export default function IndexPage() {
 
   // Function to filter projects by category for homepage tabs
   const getProjectsByCategory = (category: string) => {
-    if (category === "all") return featuredExperiences.slice(0, 3); // Limit featured to 3
+    if (category === "all") return featuredExperiences;
     if (category === "other") {
-      return Experiences.filter(exp => exp.id === "campus-swipe" || exp.id === "gsx2json-utility").slice(0, 3);
+      return Experiences.filter(exp => exp.id === "campus-swipe" || exp.id === "gsx2json-utility");
     }
     return Experiences.filter(exp => 
       exp.category.some(cat => {
@@ -75,7 +75,7 @@ export default function IndexPage() {
         if (category === "ai") return cat === "AI/ML";
         return false;
       })
-    ).slice(0, 3); // Show up to 3 projects per category for faster loading
+    );
   };
 
   // Structured data for website as a software application (template)

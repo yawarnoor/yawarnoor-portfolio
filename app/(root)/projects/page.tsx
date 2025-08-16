@@ -28,21 +28,11 @@ const renderContent = (tabVal: string) => {
   }
   // tabVal === "all" shows all projects
 
-  // Limit to first 6 projects per category for better performance
-  const limitedExpArr = expArr.slice(0, 6);
-
   return (
     <div className="mx-auto my-4 grid justify-center gap-4 sm:grid-cols-2 lg:grid-cols-3 static">
-      {limitedExpArr.map((exp) => (
+      {expArr.map((exp) => (
         <ProjectCardCarousel project={exp} key={exp.id} />
       ))}
-      {expArr.length > 6 && (
-        <div className="col-span-full flex justify-center mt-4">
-          <p className="text-muted-foreground text-sm">
-            Showing {limitedExpArr.length} of {expArr.length} projects
-          </p>
-        </div>
-      )}
     </div>
   );
 };
