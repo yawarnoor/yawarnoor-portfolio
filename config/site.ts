@@ -6,8 +6,8 @@ export const siteConfig = {
     "Yawar Noor's portfolio - A passionate Full Stack Developer specializing in MERN Stack, Flutter, and AI integration. Computer Science graduate with proven expertise in building scalable web and mobile applications.",
   url: "https://yawarnoor.vercel.app",
   links: {
-    linkedin: "https://linkedin.com/in/yawar-noor",
-    github: "https://github.com/yawarnoor",
+    linkedin: "https://www.linkedin.com/in/yawar-noor",
+    github: "https://www.github.com/yawarnoor",
     phone: "+92 303 3793701",
     email: "yawarnyt@gmail.com"
   },
