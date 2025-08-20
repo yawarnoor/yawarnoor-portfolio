@@ -10,7 +10,7 @@ export const CriticalCSS = () => {
     *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}
     html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,sans-serif}
     body{margin:0;line-height:inherit;min-height:100vh}
-    .container{width:100%;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem}
+    .container{width:100%;margin-left:auto;margin-right:auto;padding-left:2rem;padding-right:2rem}
     @media (min-width:640px){.container{max-width:640px}}
     @media (min-width:768px){.container{max-width:768px}}
     @media (min-width:1024px){.container{max-width:1024px}}

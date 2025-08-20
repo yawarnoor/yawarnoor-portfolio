@@ -24,11 +24,11 @@ export const professionalExperiences: CareerExperienceInterface[] = [
     startDate: new Date("2023-11-01"),
     endDate: "Present",
     description: [
-      "Built responsive landing pages and web applications using MERN stack, achieving 95%+ client satisfaction",
-      "Designed algorithms and business logic for various platforms, reducing processing time by 30%",
-      "Created AI-powered chatbots and assistants using OpenAI APIs, serving 200+ end users",
-      "Provided Python tutoring to 50+ students, improving their programming proficiency by 60%",
-      "Delivered Flutter mobile applications with real-time features and cross-platform compatibility",
+      "Develop and maintain full-stack web applications using modern MERN stack technologies for diverse international clients",
+      "Design custom algorithms and implement business logic solutions for complex platform requirements",
+      "Create AI-powered applications and chatbots using OpenAI APIs and machine learning technologies",
+      "Provide comprehensive Python programming education and mentorship to students across different skill levels",
+      "Build cross-platform mobile applications using Flutter with focus on performance and user experience",
     ],
     achievements: [
       "Built responsive landing pages and web applications using MERN stack, achieving 95%+ client satisfaction",
