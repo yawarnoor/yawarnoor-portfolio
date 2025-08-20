@@ -298,6 +298,38 @@
   }
 }
 
+/* Center all images globally */
+@layer utilities {
+  /* Global image centering */
+  img:not(.no-center), 
+  .next-image:not(.no-center), 
+  [data-next-image]:not(.no-center) {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+  }
+  
+  /* Specific centering for project page images */
+  .project-image {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+  }
+  
+  /* Center image containers */
+  .image-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+  /* Ensure Next.js Image component centers properly */
+  span[style*="position"] img {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
 .card {
   position: relative;
   display: flex;

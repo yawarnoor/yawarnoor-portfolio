@@ -90,14 +90,16 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </div>
 
-      <IntersectionObserverImage
-        src={exp.companyLogoImg}
-        alt={exp.companyName}
-        width={720}
-        height={405}
-        className="my-8 rounded-md border bg-muted object-cover"
-        priority
-      />
+      <div className="image-container my-8">
+        <IntersectionObserverImage
+          src={exp.companyLogoImg}
+          alt={exp.companyName}
+          width={720}
+          height={405}
+          className="rounded-md border bg-muted object-cover project-image mx-auto block"
+          priority
+        />
+      </div>
 
       <div className="mb-7 ">
         <h2 className="inline-block font-heading text-3xl leading-tight lg:text-3xl mb-2">
@@ -129,17 +131,18 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             <div>
               <p>{page.description}</p>
               {page.imgArr.map((img, ind) => (
-                <IntersectionObserverImage
-                  src={img}
-                  key={ind}
-                  alt={`${page.title} - Screenshot ${ind + 1}`}
-                  width={720}
-                  height={405}
-                  className="my-4 rounded-md border bg-muted"
-                  priority={ind === 0}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 720px"
-                  rootMargin="200px"
-                />
+                <div key={ind} className="image-container my-4">
+                  <IntersectionObserverImage
+                    src={img}
+                    alt={`${page.title} - Screenshot ${ind + 1}`}
+                    width={720}
+                    height={405}
+                    className="rounded-md border bg-muted project-image mx-auto block"
+                    priority={ind === 0}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 720px"
+                    rootMargin="200px"
+                  />
+                </div>
               ))}
             </div>
           </div>
